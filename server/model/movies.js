@@ -11,7 +11,8 @@ const moviesSchema = new Schema({
     },
     url: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     genre: [
         {
