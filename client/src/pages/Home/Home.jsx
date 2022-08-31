@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Films } from '../../context/movies'
 
 const Home = () => {
@@ -10,7 +9,7 @@ const Home = () => {
         }
         localStorage.setItem('movie', url)
 
-            window.location = '/movie'
+        window.location = '/movie'
         
         console.log('dasni');
     }
