@@ -1,6 +1,7 @@
 const AdminModel = require('../../model/admin')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid')
 
 module.exports = {
     login: async (req, res) => {
@@ -26,6 +27,8 @@ module.exports = {
         }
     },
     registr: async (req, res)=>{
+        const {email, password} = req.body
+        const admin = await AdminModel.create({email, password})
         
     },
     activation: async(req, res) => {
