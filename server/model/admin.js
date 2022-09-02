@@ -13,10 +13,6 @@ const adminSchema = new Schema({
     activationLink: {
         type: String,
         required: true
-    },
-    activated: {
-        type: Boolean,
-        required: true
     }
 })
 
