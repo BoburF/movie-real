@@ -1,6 +1,7 @@
 const AdminModel = require('../../model/admin')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const adminService = require('../../services/adminService')
 
 module.exports = {
     login: async (req, res) => {
@@ -17,7 +18,7 @@ module.exports = {
                 return res.json("Parol noto'g'ri")
             }
 
-            const token = jwt.sign({email: admin.email}, process.env.SECRET_JWT_KEY)
+            const token = await adminService.tokenGenerate({email: admin.email}, process.env.SECRET_JWT_KEY)
 
             res.send({email: admin.email} ,token)
         } catch (error) {
@@ -26,9 +27,12 @@ module.exports = {
         }
     },
     registr: async (req, res)=>{
-        
+        const {email, password} = req.body
+        const token = await adminService.tokenGenerate({email: admin.email}, process.env.SECRET_JWT_KEY)
+        const admin = await AdminModel.create(email, password)
+
     },
-    activation: async(req, res) => {
+    activation: async (req, res) => {
         
     }
 }
