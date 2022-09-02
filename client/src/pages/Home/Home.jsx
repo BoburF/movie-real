@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
-import { Films } from '../../context/movies'
+import { Link } from 'react-router-dom';
+import { useGetMoviesQuery } from '../../services/movies'
 
 const Home = () => {
-    const { movies } = Films()
+    const { data, isLoading } = useGetMoviesQuery()
+    console.log(data);
+
     const SetLocal = (url) => {
         if (localStorage.getItem('movie')) {
             localStorage.removeItem('movie')
@@ -10,26 +13,20 @@ const Home = () => {
         localStorage.setItem('movie', url)
 
         window.location = '/movie'
-        
-        console.log('dasni');
     }
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
     }, [])
 
     return (
         <div>
             Home
             {
-                movies.length ? movies.map(item => {
-                    return <div className="div" key={item.url} url={item.url} onClick={() => {
-                        SetLocal(item.url)
-                    }}>
-                        {
-                            item.name
-                        }
-                    </div>
+                data?.length ? data?.map((item, index) => {
+                    return (<Link to={'/movies/' + item._id} key={index}>
+                    {item.name}
+                    </Link>)
                 }) : <p>filmlar...</p>
             }
         </div>

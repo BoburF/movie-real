@@ -4,6 +4,8 @@ const control = require('../../controller/admin/admin')
 
 router.post('/auth/login', control.login)
 
-router.post('/auth/registr', control.registr)
+router.post('/auth/register', control.registr)
+
+router.get('/activate/:uniqueLink', control.activation)
 
 module.exports = router

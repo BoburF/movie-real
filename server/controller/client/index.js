@@ -9,6 +9,14 @@ module.exports = {
             res.json({ message: 'Filmlar topilmadi', error: error.message })
         }
     },
+    movieOne: async (req, res) => {
+        try {
+            const movie = await MoviesModule.findById(req.params.id)
+            res.json(movie)
+        } catch (error) {
+            res.json({ message: 'Filml topilmadi', error: error.message })
+        }
+    },
     moviesAdd: async (req, res) => {
         try {
             const movie = await MoviesModule.create(req.body)

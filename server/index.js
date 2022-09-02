@@ -20,7 +20,7 @@ const admin = require('./routes/admin/admin')
 
 //connect routes
 app.use('/movies', movies)
-app.use('/movies/admin', movies)
+app.use('/admin/movies', admin)
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {

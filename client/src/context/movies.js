@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-const BASE_URL = process.env.REACT_APP_BACKEND_URL
+import { BASE_URL } from '../constants/const'
+
 
 export const Movies = React.createContext({})
 
