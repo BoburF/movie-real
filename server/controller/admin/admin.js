@@ -13,7 +13,6 @@ module.exports = {
             if (!admin) {
                 return res.json("Email noto'g'ri")
             }
-            console.log(password);
             const passwordTrue = await bcrypt.compare(password, admin.password)
             console.log(passwordTrue);
 
@@ -21,16 +20,15 @@ module.exports = {
             if (!passwordTrue) {
                 return res.json("Parol noto'g'ri")
             }
-            console.log('asfasf');
-            const token = await adminService.tokenGenerate(admin.email, process.env.SECRET_JWT_KEY)
+            const token = await adminService.tokenGenerate({email: admin.email}, process.env.SECRET_JWT_KEY)
 
             const uniqueLink = uuid.v4()
 
-            await sendMail(email, process.env.FRONTEND_URL + '/activate/link/:' + uniqueLink)
+            await sendMail(email, 'http://localhost:5000/admin/movies' + '/activate/' + uniqueLink + '/token/' + token)
 
             await admin.update({email, password: admin.password, activationLink: uniqueLink})
 
-            res.status(200).json({ email: admin.email, token })
+            return res.status(200).json('Kirish linki Emailingizga yuborildi!')
         } catch (error) {
             console.log(error.message);
             res.json('Xato chiqdi!')
@@ -54,12 +52,20 @@ module.exports = {
     activation: async (req, res) => {
         
         const admin = await AdminModel.findOne({activationLink: req.params.uniqueLink})
-        
-        if(admin){
+        const token = await adminService.tokenVerify(req.params.token, process.env.SECRET_JWT_KEY)
+
+        console.log(token);
+
+
+        if(!admin){
             return res.send(true)
-        }else{
-            return res.send(false)
         }
 
+        if(token){
+            if(token.message){
+                return res.redirect(process.env.FRONTEND_URL)
+            }
+        }
+        res.json({admin, token})
     }
 }

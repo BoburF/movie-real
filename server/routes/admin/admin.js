@@ -6,6 +6,6 @@ router.post('/auth/login', control.login)
 
 router.post('/auth/register', control.registr)
 
-router.get('/activate/:uniqueLink', control.activation)
+router.get('/activate/:uniqueLink/token/:token', control.activation)
 
 module.exports = router
