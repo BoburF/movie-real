@@ -19,8 +19,7 @@ module.exports = {
             if (token) {
                 return res.redirect(process.env.FRONTEND_URL.split(' ')[0])
             }
-            console.log(genre.split(' '));
-            await MoviesModule.create({ name, img, url, genre: genre.split(' '), related, top })
+            await MoviesModule.create({ name, img, url, genre: genre.replace(/ +(?= )/g,'').split(' '), related, top })
 
             res.json('Film yaratildi')
         } catch (error) {
