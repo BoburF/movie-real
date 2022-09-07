@@ -1,16 +1,18 @@
 const jwt = require("jsonwebtoken")
 
 module.exports = {
-    tokenGenerate: async (admin, secret)=>{
-        const token = await jwt.sign(admin, secret, {expiresIn: '20s'})
+    tokenGenerate: async (admin, secret) => {
+        const token = await jwt.sign(admin, secret, { expiresIn: '1d' })
         return token
     },
     tokenVerify: async (token, secret) => {
-        const Verified = await jwt.verify(token, secret, (err, jwt) => {
-            if(err){
+        let pass = true
+        const Verify = await jwt.verify(token, secret, (err, jwt) => {
+            if (err) {
+                pass = true
                 return err
             }
         })
-        return Verified
+        return Verify
     }
 }

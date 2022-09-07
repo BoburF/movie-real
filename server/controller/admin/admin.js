@@ -4,7 +4,6 @@ const adminService = require('../../services/adminService')
 const uuid = require('uuid')
 const sendMail = require('../../services/activateAdminLink')
 
-
 module.exports = {
     login: async (req, res) => {
         try {
@@ -14,19 +13,16 @@ module.exports = {
                 return res.json("Email noto'g'ri")
             }
             const passwordTrue = await bcrypt.compare(password, admin.password)
-            console.log(passwordTrue);
-
 
             if (!passwordTrue) {
                 return res.json("Parol noto'g'ri")
             }
-            const token = await adminService.tokenGenerate({email: admin.email}, process.env.SECRET_JWT_KEY)
-
+            const token = await adminService.tokenGenerate({ email: admin.email }, process.env.SECRET_JWT_KEY)
             const uniqueLink = uuid.v4()
 
-            await sendMail(email, 'http://localhost:5000/admin/movies' + '/activate/' + uniqueLink + '/token/' + token)
+            sendMail(email, process.env.BACKEND_URL + '/admin/movies' + '/activate/' + uniqueLink + '/token/' + token)
 
-            await admin.update({email, password: admin.password, activationLink: uniqueLink})
+            await admin.updateOne({ email, password: admin.password, activationLink: uniqueLink })
 
             return res.status(200).json('Kirish linki Emailingizga yuborildi!')
         } catch (error) {
@@ -50,22 +46,35 @@ module.exports = {
         }
     },
     activation: async (req, res) => {
-        
-        const admin = await AdminModel.findOne({activationLink: req.params.uniqueLink})
+
+        const admin = await AdminModel.findOne({ activationLink: req.params.uniqueLink })
         const token = await adminService.tokenVerify(req.params.token, process.env.SECRET_JWT_KEY)
-
-        console.log(token);
-
-
-        if(!admin){
-            return res.send(true)
+        if (!admin) {
+            return res.redirect(process.env.FRONTEND_URL.split(' ')[0])
         }
 
-        if(token){
-            if(token.message){
-                return res.redirect(process.env.FRONTEND_URL)
-            }
+        if (token) {
+            return res.redirect(process.env.FRONTEND_URL.split(' ')[0])
         }
-        res.json({admin, token})
+        res.redirect(process.env.FRONTEND_URL.split(' ')[0] + `/admin/auth/login/to/admin/isactivate/admin/${admin.email}/token/${req.params.token}`)
+    },
+    verification: async (req, res) => {
+        const { token, email } = req.body
+        const isPass = await adminService.tokenVerify(token, process.env.SECRET_JWT_KEY)
+        let admin = ''
+        try {
+            const adminPass = await AdminModel.findOne({ email })
+            admin = adminPass
+        } catch (error) {
+            console.log(error.message);
+            admin = ''
+        }
+        if (!admin) {
+            return res.json(false)
+        }
+        if (isPass) {
+            return res.json(false)
+        }
+        return res.json('Verification is succed!')
     }
 }

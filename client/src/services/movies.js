@@ -5,9 +5,11 @@ const productApiHeaders = {
     'Content-Type': 'application/json'
 }
 
+
+
 export const moviesApi = createApi({
     reducerPath: 'moviesApi',
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL, headers: productApiHeaders }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL, headers: {...productApiHeaders} }),
     endpoints:(builder) => ({
         getMovies: builder.query({
             query: ()=>({
@@ -18,8 +20,18 @@ export const moviesApi = createApi({
             query: (id)=>({
                 url: '/movies/' + id
             })
+        }),
+        addMovie: builder.mutation({
+            query: (movie)=>({
+                url: '/admin/movies/movies/add',
+                body: movie,
+                headers: {
+                    adminToken: localStorage.getItem('token') || ''
+                },
+                method: 'POST'
+            })
         })
     })
 })
 
-export const {useGetMoviesQuery, useGetMovieQuery} = moviesApi
+export const {useGetMoviesQuery, useGetMovieQuery, useAddMovieMutation} = moviesApi
