@@ -1,0 +1,42 @@
+.Sidebar{
+    width: 320px;
+    height: 100%;
+    max-height: 100%;
+    padding: 20px;
+    position: relative;
+    border-right: 2px solid var(--abs);
+    svg{
+        margin-right: 10px;
+        transition: .3s;
+    }
+    .sidebar_link{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        color: var(--color);
+        transition: .3s;
+        position: relative;
+        &.active{
+            padding-left: 20px;
+            &::before{
+                display: block;
+                content: '';
+                position: absolute;
+                left: 0;
+                width: 5px;
+                height: 100%;
+                background-color: var(--abs);
+                border-radius: 5px;
+
+            }
+        }
+        &:hover{
+            background-color: var(--hover);
+            svg{
+                margin-right: 20px;
+            }
+        }
+    }
+}

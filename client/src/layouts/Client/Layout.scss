@@ -1,0 +1,10 @@
+.Layout{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    .movies_layout{
+        width: calc(100% - 320px);
+        display: flex;
+        flex-direction: column;
+    }
+}

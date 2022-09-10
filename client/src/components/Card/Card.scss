@@ -1,0 +1,35 @@
+.Card {
+    display: inline-block;
+    width: 250px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    background-position: center !important;
+    background-size: cover !important;
+    transition: .3s;
+    .info_card {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        text-align: center;
+        text-transform: capitalize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        transition: .5s;
+        p{
+            color: var(--color);
+            margin: 5px 0;
+        }
+        h3{
+            color: var(--color);
+        }
+    }
+    &:hover .info_card{
+        top: 0;
+    }
+}

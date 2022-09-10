@@ -1,0 +1,8 @@
+.movies_flex {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+    gap: calc(100% / 52);
+    overflow: scroll;
+    height: 100%;
+}

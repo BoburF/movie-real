@@ -6,8 +6,10 @@ const Layout = () => {
   return (
     <div className='Layout'>
       <Sidebar />
-      <Navbar />
-      <Outlet />
+      <div className="movies_layout">
+        <Navbar />
+        <Outlet />
+      </div>
     </div>
   )
 }
