@@ -1,3 +1,24 @@
+.sidebar{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--bcg);
+    z-index: 999999;
+    transition: .5s;
+    svg{
+        width: 30px;
+        height: 30px;
+    }
+    @media (max-width: 980px) {
+        display: flex;
+        z-index: 99999;
+    }
+}
 .Sidebar{
     width: 320px;
     height: 100%;
@@ -5,6 +26,8 @@
     padding: 20px;
     position: relative;
     border-right: 2px solid var(--abs);
+    background-color: var(--bcg);
+    transition: .5s;
     svg{
         margin-right: 10px;
         transition: .3s;
@@ -38,5 +61,24 @@
                 margin-right: 20px;
             }
         }
+    }
+    @media (max-width: 980px) {
+        position: absolute;
+        z-index: 99;
+        left: -100%;
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 320px;
+            width: calc(100vw - 320px);
+            height: 100vh;
+            z-index: 999;
+        }
+    }
+
+    @media (max-width: 600px) {
+        
     }
 }

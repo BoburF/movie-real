@@ -1,8 +1,9 @@
 .Navbar{
     width: 100%;
     height: 70px;
-    padding: 20px;
+    padding: 15px 25px;
     position: relative;
+    border-bottom: 2px solid var(--abs);
     .search{
         width: 400px;
         display: inline-block;
@@ -30,11 +31,42 @@
         border-radius: 5px;
         background-color: var(--bcg);
         z-index: 5;
+        padding: 0 5px;
         .res{
+            border-radius: 5px;
             display: block;
             padding: 5px 10px;
             margin-bottom: 10px;
             color: var(--color);
+            &:hover{
+                background-color: var(--hover);
+            }
+        }
+    }
+    @media (max-width: 980px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .search_res{
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    @media (max-width: 600px) {
+        .search{
+            width: 60%;
+        }
+        .search_res{
+            top: 50px;
+            padding-top: 10px;
+            width: 100%;
+        }
+    }
+    @media (max-width: 380px) {
+        justify-content: flex-end;
+        .search{
+            width: 85%;
         }
     }
 }

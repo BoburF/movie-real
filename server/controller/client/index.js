@@ -17,6 +17,14 @@ module.exports = {
             res.json({ message: 'Filml topilmadi', error: error.message })
         }
     },
+    movieOneRedirect: async (req, res) => {
+        try {
+            const movie = await MoviesModule.findById(req.params.id)
+            res.redirect(movie.url)
+        } catch (error) {
+            res.json({ message: 'Filml topilmadi', error: error.message })
+        }
+    },
     moviesAdd: async (req, res) => {
         try {
             const movie = await MoviesModule.create(req.body)

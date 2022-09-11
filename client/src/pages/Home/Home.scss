@@ -5,4 +5,8 @@
     gap: calc(100% / 52);
     overflow: scroll;
     height: 100%;
+    justify-content: center;
+    @media (max-width: 980px){
+        gap: calc(100% / 20);
+    }
 }

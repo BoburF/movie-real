@@ -7,6 +7,10 @@
     background-position: center !important;
     background-size: cover !important;
     transition: .3s;
+    @media (max-width: 1200px) {
+        width: 182px;
+        height: 300px;
+    }
     .info_card {
         position: absolute;
         top: 100%;
@@ -27,6 +31,14 @@
         }
         h3{
             color: var(--color);
+        }
+        @media (max-width: 1200px) {
+            top: 50%;
+            align-items: flex-start;
+            h3{
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
         }
     }
     &:hover .info_card{

@@ -15,9 +15,11 @@ const Navbar = () => {
       })
       setRes(da)
       setDisplay('block')
+    }else{
+      setDisplay('block')
     }
   }
-  
+
   const close = () => {
     setDisplay('none')
     setSearchText('')
@@ -36,7 +38,7 @@ const Navbar = () => {
       </div>
       <div className="search_res" style={{ display: display }}>
         {
-          res.length ? res.map((item, idx) => {
+          res?.length ? res?.map((item, idx) => {
             if (idx < 5) {
               return (<Link to={'/movies/' + item._id} className="res" onClick={(e) => close()} key={idx}>{item.name}</Link>)
             }
